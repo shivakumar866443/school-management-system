@@ -33,7 +33,7 @@ export const stats = [
   { label: 'Avg Result', value: '92%' },
   { label: 'Parent Rating', value: '4.8/5' }
 ];
-
+//added comment
 export const dashboardMetrics = [
   { month: 'Jan', attendance: 91, performance: 82, engagement: 76 },
   { month: 'Feb', attendance: 93, performance: 85, engagement: 79 },
