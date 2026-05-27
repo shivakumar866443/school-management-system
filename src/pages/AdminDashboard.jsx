@@ -27,7 +27,6 @@ import HistoryIcon from '@mui/icons-material/History';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import BadgeIcon from '@mui/icons-material/Badge';
 import SaveIcon from '@mui/icons-material/Save';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DashboardCharts from '../components/DashboardCharts.jsx';
@@ -347,15 +346,16 @@ export default function AdminDashboard() {
                   <Tab value="students" icon={<PeopleAltIcon />} iconPosition="start" label="Students" />
                   <Tab value="employees" icon={<BadgeIcon />} iconPosition="start" label="Employees" />
                 </Tabs>
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
+                <Stack
+                  direction={{ xs: 'column', sm: 'row' }}
+                  spacing={1.5}
+                  sx={{ width: { xs: '100%', md: 'auto' }, justifyContent: 'flex-end' }}
+                >
                   <Button variant="contained" startIcon={<AddIcon />} onClick={() => openCreate('students')}>
                     Add Student
                   </Button>
                   <Button variant="outlined" startIcon={<AddIcon />} onClick={() => openCreate('employees')}>
                     Add Employee
-                  </Button>
-                  <Button variant="text" startIcon={<VisibilityIcon />} onClick={() => setMode('list')}>
-                    View Details
                   </Button>
                 </Stack>
               </Stack>
