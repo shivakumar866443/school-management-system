@@ -19,13 +19,13 @@ export default function AdminLogin() {
       navigate('/admin');
       return;
     }
-    setError('Invalid static admin credentials.');
+    setError('Invalid admin credentials.');
   };
 
   return (
     <Box className="section-band">
       <Box className="page-shell" sx={{ maxWidth: 620 }}>
-        <SectionHeader eyebrow="Admin" title="Secure admin login" subtitle="Static demo login. Replace this with JWT APIs when backend development starts." />
+        <SectionHeader eyebrow="Admin" title="Secure school management login" subtitle="Access student records, employee details, academic indicators, attendance, and day-to-day administration from one focused workspace." />
         <Card>
           <CardContent>
             <Stack component="form" spacing={2.2} onSubmit={handleLogin}>

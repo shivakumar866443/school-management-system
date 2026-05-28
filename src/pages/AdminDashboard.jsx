@@ -76,7 +76,7 @@ export default function AdminDashboard() {
       { label: 'Students', value: studentRows.length, icon: <PeopleAltIcon color="primary" /> },
       { label: 'Employees', value: employeeRows.length, icon: <BadgeIcon color="secondary" /> },
       { label: 'Records Updated', value: studentRows.length + employeeRows.length, icon: <EditIcon color="success" /> },
-      { label: 'History Mode', value: 'Static', icon: <HistoryIcon color="warning" /> }
+      { label: 'Records View', value: 'Current', icon: <HistoryIcon color="warning" /> }
     ],
     [employeeRows.length, studentRows.length]
   );
@@ -150,7 +150,7 @@ export default function AdminDashboard() {
         </Button>
         <Typography variant="h4">{editingId ? `Edit ${activeTitle}` : `Add ${activeTitle}`}</Typography>
         <Typography sx={{ color: 'rgba(255,255,255,0.7)', mt: 0.5 }}>
-          Static admin entry now. Later this same screen can call Node.js APIs with JWT authorization.
+          Keep school records accurate for classroom follow-up, parent communication, and management review.
         </Typography>
       </Box>
       <CardContent>
@@ -313,7 +313,7 @@ export default function AdminDashboard() {
           <SectionHeader
             eyebrow="Admin Panel"
             title="Student and employee management"
-            subtitle="Admin can manage static student and employee records here. Later these same actions can connect to Node.js, MongoDB, file uploads, and real JWT APIs."
+            subtitle="Manage student profiles, employee details, attendance indicators, marks, and operational records from a clean school administration workspace."
           />
           <Button onClick={logout} variant="outlined" sx={{ alignSelf: { sm: 'flex-start' } }}>
             Logout

@@ -9,7 +9,7 @@ export default function Gallery() {
         <SectionHeader
           eyebrow="Gallery"
           title="Campus, classroom, sports, and events"
-          subtitle="Replace these temporary public images with school-provided photos when the client shares assets."
+          subtitle="A visual glimpse of classroom learning, celebrations, sports participation, campus life, and student activities."
         />
         <Grid container spacing={2}>
           {galleryImages.map((image) => (

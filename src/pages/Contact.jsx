@@ -14,7 +14,7 @@ export default function Contact() {
         <SectionHeader
           eyebrow="Contact"
           title="Address, map, and enquiry details"
-          subtitle="Using free Google Maps embed for now. The address can be changed for each school from static data."
+          subtitle="Reach the school office for admissions, transport, fee guidance, parent meetings, and general campus information."
         />
         <Grid container spacing={3}>
           <Grid item xs={12} md={5}>
@@ -28,7 +28,7 @@ export default function Contact() {
                   <TextField label="Your Name" fullWidth />
                   <TextField label="Email or Phone" fullWidth />
                   <TextField label="Message" multiline minRows={4} fullWidth />
-                  <Button variant="contained">Send Static Message</Button>
+                  <Button variant="contained">Send Message</Button>
                 </Stack>
               </CardContent>
             </Card>

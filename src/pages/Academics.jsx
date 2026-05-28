@@ -8,8 +8,8 @@ export default function Academics() {
       <Box className="page-shell">
         <SectionHeader
           eyebrow="Academics"
-          title="Marks, subjects, curriculum, and learning support"
-          subtitle="A summary view for public users. Detailed mark sheets and student history stay inside the admin area."
+          title="Strong academics with steady learning support"
+          subtitle="The academic program focuses on concept clarity, reading, written expression, assessments, remedial plans, and regular communication with families."
         />
         <Grid container spacing={3}>
           {studentPerformance.map((item) => (
@@ -18,7 +18,7 @@ export default function Academics() {
                 <CardContent>
                   <Typography variant="h6">{item.name}</Typography>
                   <LinearProgress variant="determinate" value={item.value} sx={{ my: 2, height: 10, borderRadius: 5 }} />
-                  <Typography color="text.secondary">{item.value}% average performance</Typography>
+                  <Typography color="text.secondary">{item.value}% current term learning indicator with teacher-led support plans.</Typography>
                 </CardContent>
               </Card>
             </Grid>
