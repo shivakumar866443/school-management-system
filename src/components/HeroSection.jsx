@@ -15,24 +15,33 @@ export default function HeroSection() {
         position: 'relative',
         backgroundImage: `linear-gradient(90deg, rgba(23,33,43,0.88), rgba(23,33,43,0.42)), url(${schoolProfile.heroImage})`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center'
+        backgroundPosition: 'center',
+        py: { xs: 7, md: 0 }
       }}
     >
       <Container maxWidth="lg">
         <Grid container spacing={5} alignItems="center">
           <Grid item xs={12} md={7}>
             <Typography variant="overline" sx={{ color: '#f2c94c', fontWeight: 800 }}>
-              Static now. Backend ready later.
+              Admissions open for the new academic year
             </Typography>
             <Typography variant="h1" sx={{ fontSize: { xs: 42, md: 66 }, lineHeight: 1.02, mt: 1 }}>
               {schoolProfile.brandName}
             </Typography>
             <Typography variant="h5" sx={{ mt: 2, maxWidth: 720, color: 'rgba(255,255,255,0.82)' }}>
-              {schoolProfile.tagLine} with dashboards, admissions, careers, gallery, ratings,
-              parent coordination, teacher interaction, and admin management.
+              {schoolProfile.tagLine}. A caring campus experience with smart school operations,
+              clear parent communication, student growth tracking, admissions, careers, gallery,
+              and management dashboards.
             </Typography>
             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mt: 4 }}>
-              <Button variant="contained" color="secondary" size="large" component={Link} to="/admissions" endIcon={<ArrowForwardIcon />}>
+              <Button
+                variant="contained"
+                size="large"
+                component={Link}
+                to="/admissions"
+                endIcon={<ArrowForwardIcon />}
+                sx={{ bgcolor: '#f2a900', color: '#17212b', '&:hover': { bgcolor: '#d89200' } }}
+              >
                 Start Admission
               </Button>
               <Button variant="outlined" size="large" component={Link} to="/dashboard" startIcon={<QueryStatsIcon />} sx={{ color: '#fff', borderColor: 'rgba(255,255,255,0.55)' }}>

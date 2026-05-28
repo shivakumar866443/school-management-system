@@ -9,7 +9,7 @@ export default function Parents() {
         <SectionHeader
           eyebrow="Parents"
           title="Coordination, reviews, and transparent communication"
-          subtitle="Show ratings, feedback, meeting summaries, circulars, and parent-teacher communication highlights."
+          subtitle="Families can understand how the school communicates progress, responds to concerns, and keeps parents connected to the child's daily development."
         />
         <Grid container spacing={3}>
           {reviews.map((review) => (
@@ -19,6 +19,9 @@ export default function Parents() {
                   <Rating value={review.rating} precision={0.1} readOnly />
                   <Typography variant="h6" sx={{ mt: 1 }}>
                     {review.name}
+                  </Typography>
+                  <Typography variant="body2" color="primary.dark" fontWeight={700} sx={{ mb: 1 }}>
+                    {review.relation}
                   </Typography>
                   <Typography color="text.secondary">{review.comment}</Typography>
                 </CardContent>

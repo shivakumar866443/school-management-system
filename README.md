@@ -1,6 +1,6 @@
 # Universal School Portal
 
-A reusable static React website for schools. It includes public pages, charts, ratings, gallery, admissions, careers, contact with map, and a static admin-only area for student management previews.
+A reusable React website for schools. It includes public pages, charts, ratings, gallery, admissions, careers, contact with map, and an admin-only area for student management previews.
 
 ## Tech Stack
 
@@ -8,7 +8,7 @@ A reusable static React website for schools. It includes public pages, charts, r
 - Material UI
 - React Router
 - Recharts
-- Static data from `src/data/schoolData.js`
+- School content from `src/data/schoolData.js`
 
 ## Run Locally
 
@@ -30,7 +30,7 @@ Email: admin@school.com
 Password: Admin@123
 ```
 
-This is a static demo login. When backend work starts, replace this with Node.js, MongoDB, file uploads, real JWT authentication, and role-based access.
+This preview login is intended for guided review and can be connected to production services when the implementation moves to deployment.
 
 ## Deploy To Vercel
 

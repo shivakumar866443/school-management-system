@@ -6,9 +6,9 @@ import SectionHeader from '../components/SectionHeader.jsx';
 import StudentTable from '../components/StudentTable.jsx';
 
 const growthAreas = [
-  { title: 'Games & Sports', icon: <SportsBasketballIcon color="primary" />, text: 'Track participation, wins, fitness, and teamwork.' },
-  { title: 'Teacher Interaction', icon: <ForumIcon color="secondary" />, text: 'Log teacher observations and academic support.' },
-  { title: 'Child Development', icon: <PsychologyIcon color="success" />, text: 'Monitor confidence, discipline, creativity, and learning style.' }
+  { title: 'Games & Sports', icon: <SportsBasketballIcon color="primary" />, text: 'Track participation, fitness, teamwork, house events, and certificates.' },
+  { title: 'Teacher Interaction', icon: <ForumIcon color="secondary" />, text: 'Capture classroom observations, mentoring notes, academic support, and follow-ups.' },
+  { title: 'Child Development', icon: <PsychologyIcon color="success" />, text: 'Monitor confidence, communication, discipline, creativity, and leadership habits.' }
 ];
 
 export default function StudentGrowth() {
@@ -17,8 +17,8 @@ export default function StudentGrowth() {
       <Box className="page-shell">
         <SectionHeader
           eyebrow="Student Growth"
-          title="Performance without exposing private data"
-          subtitle="Public pages show masked student rows and broad indicators. Admins can view and manage detailed records."
+          title="Whole-child progress across academics and activities"
+          subtitle="Student growth is viewed through attendance, marks, participation, teacher feedback, behaviour, sports, and confidence indicators."
         />
         <Grid container spacing={3} sx={{ mb: 4 }}>
           {growthAreas.map((area) => (

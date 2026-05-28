@@ -33,7 +33,13 @@ a {
 }
 
 .section-band {
-  padding: 72px 0;
+  padding: 40px 0 64px;
+}
+
+@media (max-width: 600px) {
+  .section-band {
+    padding: 28px 0 48px;
+  }
 }
 
 .map-frame {

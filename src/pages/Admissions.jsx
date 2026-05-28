@@ -9,15 +9,15 @@ export default function Admissions() {
       <Box className="page-shell">
         <SectionHeader
           eyebrow="Admissions"
-          title="Simple enquiry flow for new admissions"
-          subtitle="This form is static for now. Later it can be connected to Node.js APIs, MongoDB, email alerts, and file uploads."
+          title="A clear admission journey for every family"
+          subtitle="Parents can share basic details, understand the school process, and connect with the admissions team for counselling, campus visits, and class availability."
         />
         <Grid container spacing={3}>
           <Grid item xs={12} md={5}>
             <Card>
               <CardContent>
                 <Typography variant="h5" gutterBottom>
-                  Admission Steps
+                  Admission Process
                 </Typography>
                 <List>
                   {admissionSteps.map((step, index) => (
@@ -46,11 +46,11 @@ export default function Admissions() {
                     <TextField fullWidth label="Mobile Number" />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField fullWidth multiline minRows={4} label="Message" />
+                    <TextField fullWidth multiline minRows={4} label="Tell us about your child and preferred joining timeline" />
                   </Grid>
                   <Grid item xs={12}>
                     <Button variant="contained" endIcon={<SendIcon />}>
-                      Submit Static Enquiry
+                      Submit Admission Enquiry
                     </Button>
                   </Grid>
                 </Grid>

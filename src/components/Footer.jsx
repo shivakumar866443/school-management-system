@@ -11,13 +11,16 @@ export default function Footer() {
               {schoolProfile.brandName}
             </Typography>
             <Typography color="rgba(255,255,255,0.72)">
-              A reusable static website foundation for schools. Dynamic Node.js, MongoDB, file uploads,
-              and JWT APIs can be added when the client needs them.
+              A caring school community focused on academics, values, student confidence,
+              parent communication, and well-managed campus operations.
             </Typography>
           </Grid>
           <Grid item xs={12} md={4}>
             <Typography variant="h6" gutterBottom>
               Modules
+            </Typography>
+            <Typography color="rgba(255,255,255,0.72)" variant="body2" sx={{ mb: 1 }}>
+              Everyday school workflows for admissions, learning, activities, parent updates, and administration.
             </Typography>
             <Stack spacing={0.7}>
               {activities.slice(0, 5).map((item) => (
@@ -30,6 +33,9 @@ export default function Footer() {
           <Grid item xs={12} md={3}>
             <Typography variant="h6" gutterBottom>
               Contact
+            </Typography>
+            <Typography color="rgba(255,255,255,0.72)" variant="body2" sx={{ mb: 1 }}>
+              Connect with the admissions desk for campus visits, class availability, and parent counselling.
             </Typography>
             <Typography color="rgba(255,255,255,0.72)" variant="body2">
               {schoolProfile.address}

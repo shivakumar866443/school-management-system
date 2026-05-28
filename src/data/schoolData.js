@@ -1,9 +1,9 @@
 export const schoolProfile = {
   brandName: 'Peepal Tree Schools',
-  tagLine: 'One modern website foundation for any school',
+  tagLine: 'Nurturing confident learners through strong academics, values, and daily care',
   phone: '+91 98765 43210',
-  email: 'admissions@schoolportal.edu',
-  address: 'Main Road, Knowledge City, India',
+  email: 'admissions@peepaltreeschools.edu',
+  address: 'Main Road, Knowledge City, Hyderabad, Telangana',
   mapQuery: 'schools near Hyderabad India',
   adminCredentials: {
     email: 'admin@school.com',
@@ -22,7 +22,7 @@ export const navItems = [
   { label: 'Gallery', path: '/gallery' },
   { label: 'Academics', path: '/academics' },
   { label: 'Student Growth', path: '/student-growth' },
-  { label: 'Parents', path: '/parents' },
+  { label: 'Parents Interaction', path: '/parents' },
   { label: 'Contact', path: '/contact' },
   { label: 'Admin Login', path: '/admin/login' }
 ];
@@ -33,7 +33,7 @@ export const stats = [
   { label: 'Avg Result', value: '92%' },
   { label: 'Parent Rating', value: '4.8/5' }
 ];
-//added comment
+
 export const dashboardMetrics = [
   { month: 'Jan', attendance: 91, performance: 82, engagement: 76 },
   { month: 'Feb', attendance: 93, performance: 85, engagement: 79 },
@@ -52,17 +52,17 @@ export const studentPerformance = [
 ];
 
 export const admissionSteps = [
-  'Submit enquiry with student and parent details',
-  'School team schedules campus visit or online counselling',
-  'Assessment and document verification',
-  'Admission confirmation and fee setup'
+  'Share student details and preferred grade with the admissions team',
+  'Meet the counsellor for curriculum, transport, and fee guidance',
+  'Complete age-appropriate interaction and document verification',
+  'Receive admission confirmation, class allocation, and joining plan'
 ];
 
 export const careers = [
-  { role: 'Primary Teacher', department: 'Foundation', type: 'Full time' },
-  { role: 'Mathematics Faculty', department: 'High School', type: 'Full time' },
-  { role: 'Sports Coach', department: 'Activities', type: 'Part time' },
-  { role: 'Academic Coordinator', department: 'Operations', type: 'Full time' }
+  { role: 'Primary Teacher', department: 'Foundation Wing', type: 'Full time', note: 'Play-way learning, phonics, numeracy, and classroom care.' },
+  { role: 'Mathematics Faculty', department: 'Middle & High School', type: 'Full time', note: 'Concept teaching, exam preparation, and remedial support.' },
+  { role: 'Sports Coach', department: 'Physical Education', type: 'Part time', note: 'Fitness routines, team games, events, and student discipline.' },
+  { role: 'Academic Coordinator', department: 'School Operations', type: 'Full time', note: 'Lesson planning, teacher reviews, assessments, and parent updates.' }
 ];
 
 export const galleryImages = [
@@ -76,19 +76,22 @@ export const galleryImages = [
 
 export const reviews = [
   {
-    name: 'Parent of Grade 6 student',
+    name: 'Sravani Reddy',
+    relation: 'Mother of Aarav Reddy, Grade 6',
     rating: 5,
-    comment: 'Teachers communicate regularly and the progress reports are easy to understand.'
+    comment: 'Teachers share clear updates after assessments and class activities. We understand where our child is improving and where he needs support.'
   },
   {
-    name: 'Parent of Grade 2 student',
+    name: 'Mahesh Kumar',
+    relation: 'Father of Diya Kumar, Grade 2',
     rating: 4.8,
-    comment: 'The school balances academics, games, events, and child confidence very well.'
+    comment: 'The school balances reading, numbers, games, stage exposure, and values. My daughter has become more confident in speaking.'
   },
   {
-    name: 'Alumni Parent',
+    name: 'Anitha Sharma',
+    relation: 'Parent of alumni student, Batch 2025',
     rating: 4.9,
-    comment: 'A transparent school management system helps parents stay involved.'
+    comment: 'We always felt informed about attendance, marks, events, and teacher feedback. The management team is approachable and responsive.'
   }
 ];
 
@@ -107,10 +110,49 @@ export const employees = [
 ];
 
 export const activities = [
-  'Games and sports management',
-  'Teacher-child interaction tracking',
-  'Parent coordination and feedback',
-  'Marks and academic history',
-  'Attendance and behaviour insights',
-  'Events, gallery, transport and announcements'
+  'Sports & wellness',
+  'Teacher-child mentoring',
+  'Parent coordination',
+  'Academic records',
+  'Attendance & conduct',
+  'Events & communication'
+];
+
+export const operationalModules = [
+  {
+    title: 'Sports & wellness',
+    summary: 'House-wise games, fitness routines, event participation, and achievement records.',
+    details:
+      'The school can track sports periods, inter-house competitions, student fitness, certificates, and coach remarks. This helps parents see how the child is growing beyond classroom marks.'
+  },
+  {
+    title: 'Teacher-child mentoring',
+    summary: 'Class teacher observations, learning support, discipline notes, and confidence building.',
+    details:
+      'Teachers can maintain regular observations on participation, homework habits, reading ability, peer behaviour, and support required. Coordinators can review follow-ups during parent meetings.'
+  },
+  {
+    title: 'Parent coordination',
+    summary: 'Feedback, meeting notes, circular acknowledgement, and communication history.',
+    details:
+      'Parents get a clear channel for concerns, appreciation, transport updates, and meeting requests. The management team can review response status and make communication more transparent.'
+  },
+  {
+    title: 'Academic records',
+    summary: 'Subject-wise marks, term results, improvement plans, and class performance.',
+    details:
+      'Academic teams can monitor subject averages, identify students needing support, and prepare focused revision plans before assessments and board examination cycles.'
+  },
+  {
+    title: 'Attendance & conduct',
+    summary: 'Daily attendance, late arrivals, behaviour notes, and regularity insights.',
+    details:
+      'Class teachers can review attendance patterns, punctuality, classroom behaviour, and counselling notes so that small concerns are addressed before they become bigger gaps.'
+  },
+  {
+    title: 'Events & communication',
+    summary: 'Announcements, gallery updates, circulars, transport notices, and school celebrations.',
+    details:
+      'The school can publish assembly highlights, annual day updates, field trips, competition photos, holidays, and important circulars in one organized communication space.'
+  }
 ];
