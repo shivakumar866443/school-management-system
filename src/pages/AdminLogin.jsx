@@ -4,22 +4,28 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SectionHeader from '../components/SectionHeader.jsx';
 import { schoolProfile } from '../data/schoolData.js';
+import { authApi } from '../services/api.js';
 
 export default function AdminLogin() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('admin@school.com');
   const [password, setPassword] = useState('Admin@123');
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    if (email === schoolProfile.adminCredentials.email && password === schoolProfile.adminCredentials.password) {
-      const fakeJwt = btoa(JSON.stringify({ role: 'admin', email, loginAt: new Date().toISOString() }));
-      sessionStorage.setItem('school_admin_token', fakeJwt);
+    setError('');
+    setIsSubmitting(true);
+
+    try {
+      await authApi.login({ email, password });
       navigate('/admin');
-      return;
+    } catch (apiError) {
+      setError(apiError.message || 'Invalid admin credentials.');
+    } finally {
+      setIsSubmitting(false);
     }
-    setError('Invalid admin credentials.');
   };
 
   return (
@@ -34,8 +40,8 @@ export default function AdminLogin() {
               {error && <Alert severity="error">{error}</Alert>}
               <TextField label="Admin Email" value={email} onChange={(event) => setEmail(event.target.value)} fullWidth />
               <TextField label="Password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} fullWidth />
-              <Button type="submit" variant="contained" size="large">
-                Login as Admin
+              <Button type="submit" variant="contained" size="large" disabled={isSubmitting}>
+                {isSubmitting ? 'Logging in...' : 'Login as Admin'}
               </Button>
             </Stack>
           </CardContent>

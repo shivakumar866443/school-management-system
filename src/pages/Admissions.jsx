@@ -1,9 +1,43 @@
-import { Box, Button, Card, CardContent, Grid, List, ListItem, ListItemText, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, Card, CardContent, Grid, List, ListItem, ListItemText, TextField, Typography } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
+import { useState } from 'react';
 import SectionHeader from '../components/SectionHeader.jsx';
 import { admissionSteps } from '../data/schoolData.js';
+import { admissionsApi } from '../services/api.js';
+
+const initialForm = {
+  studentName: '',
+  applyingForGrade: '',
+  parentName: '',
+  phone: '',
+  message: ''
+};
 
 export default function Admissions() {
+  const [form, setForm] = useState(initialForm);
+  const [status, setStatus] = useState({ type: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (field, value) => {
+    setForm((current) => ({ ...current, [field]: value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setStatus({ type: '', message: '' });
+    setIsSubmitting(true);
+
+    try {
+      await admissionsApi.create(form);
+      setForm(initialForm);
+      setStatus({ type: 'success', message: 'Admission enquiry submitted successfully.' });
+    } catch (error) {
+      setStatus({ type: 'error', message: error.message || 'Unable to submit admission enquiry.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <Box className="section-band">
       <Box className="page-shell">
@@ -32,25 +66,30 @@ export default function Admissions() {
           <Grid item xs={12} md={7}>
             <Card>
               <CardContent>
-                <Grid container spacing={2}>
+                <Grid container spacing={2} component="form" onSubmit={handleSubmit}>
+                  {status.message && (
+                    <Grid item xs={12}>
+                      <Alert severity={status.type}>{status.message}</Alert>
+                    </Grid>
+                  )}
                   <Grid item xs={12} sm={6}>
-                    <TextField fullWidth label="Student Name" />
+                    <TextField fullWidth required label="Student Name" value={form.studentName} onChange={(event) => handleChange('studentName', event.target.value)} />
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <TextField fullWidth label="Class Applying For" />
+                    <TextField fullWidth required label="Class Applying For" value={form.applyingForGrade} onChange={(event) => handleChange('applyingForGrade', event.target.value)} />
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <TextField fullWidth label="Parent Name" />
+                    <TextField fullWidth required label="Parent Name" value={form.parentName} onChange={(event) => handleChange('parentName', event.target.value)} />
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <TextField fullWidth label="Mobile Number" />
+                    <TextField fullWidth required label="Mobile Number" value={form.phone} onChange={(event) => handleChange('phone', event.target.value)} />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField fullWidth multiline minRows={4} label="Tell us about your child and preferred joining timeline" />
+                    <TextField fullWidth multiline minRows={4} label="Tell us about your child and preferred joining timeline" value={form.message} onChange={(event) => handleChange('message', event.target.value)} />
                   </Grid>
                   <Grid item xs={12}>
-                    <Button variant="contained" endIcon={<SendIcon />}>
-                      Submit Admission Enquiry
+                    <Button type="submit" variant="contained" endIcon={<SendIcon />} disabled={isSubmitting}>
+                      {isSubmitting ? 'Submitting...' : 'Submit Admission Enquiry'}
                     </Button>
                   </Grid>
                 </Grid>
