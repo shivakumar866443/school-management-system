@@ -1,5 +1,6 @@
 import {
   Box,
+  Alert,
   Button,
   Card,
   CardContent,
@@ -27,13 +28,15 @@ import HistoryIcon from '@mui/icons-material/History';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import BadgeIcon from '@mui/icons-material/Badge';
 import SaveIcon from '@mui/icons-material/Save';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DashboardCharts from '../components/DashboardCharts.jsx';
 import SectionHeader from '../components/SectionHeader.jsx';
 import { employees as employeeSeed, students as studentSeed } from '../data/schoolData.js';
+import { authApi, employeesApi, studentsApi } from '../services/api.js';
 
 const emptyStudent = {
+  admissionNo: '',
   name: '',
   grade: '',
   parent: '',
@@ -44,6 +47,7 @@ const emptyStudent = {
 };
 
 const emptyEmployee = {
+  employeeNo: '',
   name: '',
   role: '',
   department: '',
@@ -51,6 +55,70 @@ const emptyEmployee = {
   experience: '',
   status: 'Active'
 };
+
+function mapStudent(record) {
+  return {
+    id: record._id || record.id,
+    admissionNo: record.admissionNo || '',
+    name: record.name || '',
+    grade: record.grade || '',
+    parent: record.parentName || record.parent || '',
+    phone: record.parentPhone || record.phone || '',
+    attendance: record.attendance ?? '',
+    marks: record.marks ?? '',
+    status: record.status || 'Active',
+    parentEmail: record.parentEmail || '',
+    address: record.address || '',
+    extraFields: record.extraFields || {}
+  };
+}
+
+function mapEmployee(record) {
+  return {
+    id: record._id || record.id,
+    employeeNo: record.employeeNo || '',
+    name: record.name || '',
+    role: record.role || '',
+    department: record.department || '',
+    phone: record.phone || '',
+    email: record.email || '',
+    experience: record.experience || '',
+    status: record.status || 'Active',
+    joiningDate: record.joiningDate || '',
+    extraFields: record.extraFields || {}
+  };
+}
+
+function buildStudentPayload(form) {
+  return {
+    admissionNo: form.admissionNo || `ADM${Date.now()}`,
+    name: form.name,
+    grade: form.grade,
+    parentName: form.parent,
+    parentPhone: form.phone,
+    parentEmail: form.parentEmail || undefined,
+    address: form.address || undefined,
+    attendance: Number(form.attendance || 0),
+    marks: Number(form.marks || 0),
+    status: form.status || 'Active',
+    extraFields: form.extraFields || {}
+  };
+}
+
+function buildEmployeePayload(form) {
+  return {
+    employeeNo: form.employeeNo || `EMP${Date.now()}`,
+    name: form.name,
+    role: form.role,
+    department: form.department,
+    phone: form.phone,
+    email: form.email || undefined,
+    experience: form.experience,
+    status: form.status || 'Active',
+    joiningDate: form.joiningDate || undefined,
+    extraFields: form.extraFields || {}
+  };
+}
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -61,9 +129,34 @@ export default function AdminDashboard() {
   const [employeeRows, setEmployeeRows] = useState(employeeSeed);
   const [studentForm, setStudentForm] = useState(emptyStudent);
   const [employeeForm, setEmployeeForm] = useState(emptyEmployee);
+  const [statusMessage, setStatusMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+
+  useEffect(() => {
+    async function loadRecords() {
+      setIsLoading(true);
+      setStatusMessage('');
+
+      try {
+        const [studentsResponse, employeesResponse] = await Promise.all([
+          studentsApi.list(),
+          employeesApi.list()
+        ]);
+        setStudentRows(studentsResponse.data.map(mapStudent));
+        setEmployeeRows(employeesResponse.data.map(mapEmployee));
+      } catch (error) {
+        setStatusMessage(error.message || 'Unable to load records from the API.');
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    loadRecords();
+  }, []);
 
   const logout = () => {
-    sessionStorage.removeItem('school_admin_token');
+    authApi.logout();
     navigate('/admin/login');
   };
 
@@ -114,32 +207,58 @@ export default function AdminDashboard() {
     setActiveForm({ ...activeForm, [field]: value });
   };
 
-  const saveRecord = () => {
-    if (tab === 'students') {
-      const payload = {
-        ...studentForm,
-        attendance: Number(studentForm.attendance || 0),
-        marks: Number(studentForm.marks || 0)
-      };
-      if (editingId) {
-        setStudentRows((rows) => rows.map((row) => (row.id === editingId ? { ...payload, id: editingId } : row)));
+  const saveRecord = async () => {
+    setStatusMessage('');
+    setIsSaving(true);
+
+    try {
+      if (tab === 'students') {
+        const payload = buildStudentPayload(studentForm);
+        const response = editingId
+          ? await studentsApi.update(editingId, payload)
+          : await studentsApi.create(payload);
+        const savedStudent = mapStudent(response.data);
+
+        if (editingId) {
+          setStudentRows((rows) => rows.map((row) => (row.id === editingId ? savedStudent : row)));
+        } else {
+          setStudentRows((rows) => [savedStudent, ...rows]);
+        }
       } else {
-        setStudentRows((rows) => [{ ...payload, id: Date.now() }, ...rows]);
+        const payload = buildEmployeePayload(employeeForm);
+        const response = editingId
+          ? await employeesApi.update(editingId, payload)
+          : await employeesApi.create(payload);
+        const savedEmployee = mapEmployee(response.data);
+
+        if (editingId) {
+          setEmployeeRows((rows) => rows.map((row) => (row.id === editingId ? savedEmployee : row)));
+        } else {
+          setEmployeeRows((rows) => [savedEmployee, ...rows]);
+        }
       }
-    } else if (editingId) {
-      setEmployeeRows((rows) => rows.map((row) => (row.id === editingId ? { ...employeeForm, id: editingId } : row)));
-    } else {
-      setEmployeeRows((rows) => [{ ...employeeForm, id: Date.now() }, ...rows]);
+      goBack();
+    } catch (error) {
+      setStatusMessage(error.message || `Unable to save ${activeTitle.toLowerCase()}.`);
+    } finally {
+      setIsSaving(false);
     }
-    goBack();
   };
 
-  const deleteRecord = (id) => {
-    if (tab === 'students') {
-      setStudentRows((rows) => rows.filter((row) => row.id !== id));
-      return;
+  const deleteRecord = async (id) => {
+    setStatusMessage('');
+
+    try {
+      if (tab === 'students') {
+        await studentsApi.remove(id);
+        setStudentRows((rows) => rows.filter((row) => row.id !== id));
+        return;
+      }
+      await employeesApi.remove(id);
+      setEmployeeRows((rows) => rows.filter((row) => row.id !== id));
+    } catch (error) {
+      setStatusMessage(error.message || `Unable to delete ${activeTitle.toLowerCase()}.`);
     }
-    setEmployeeRows((rows) => rows.filter((row) => row.id !== id));
   };
 
   const renderForm = () => (
@@ -203,8 +322,8 @@ export default function AdminDashboard() {
           )}
           <Grid item xs={12}>
             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
-              <Button variant="contained" size="large" startIcon={<SaveIcon />} onClick={saveRecord}>
-                Save {activeTitle}
+              <Button variant="contained" size="large" startIcon={<SaveIcon />} onClick={saveRecord} disabled={isSaving}>
+                {isSaving ? 'Saving...' : `Save ${activeTitle}`}
               </Button>
               <Button variant="outlined" size="large" startIcon={<ArrowBackIcon />} onClick={goBack}>
                 Back to Details
@@ -319,6 +438,18 @@ export default function AdminDashboard() {
             Logout
           </Button>
         </Stack>
+
+        {statusMessage && (
+          <Alert severity="error" sx={{ mb: 3 }}>
+            {statusMessage}
+          </Alert>
+        )}
+
+        {isLoading && (
+          <Alert severity="info" sx={{ mb: 3 }}>
+            Loading latest records...
+          </Alert>
+        )}
 
         <Grid container spacing={2} sx={{ mb: 4 }}>
           {summary.map((item) => (
